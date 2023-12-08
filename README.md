@@ -1,5 +1,5 @@
 # wox-sprite-converter
-A utility to convert sprite assets found in the game Might and Magic 4-5 World of Xeen to PNG images.
+A utility to convert sprite assets found in the game Might and Magic 4-5 World of Xeen to PNG images - written in Rust.
 
 ![002 ATT_0](https://github.com/ShortBeard/wox-sprite-converter/assets/8405659/c9b8526d-a2f6-4a6e-b318-ef38f7c1ace3)
 ![002 ATT_3](https://github.com/ShortBeard/wox-sprite-converter/assets/8405659/a7476f86-f5a5-43a9-b5a6-430b1e7cca0f)
