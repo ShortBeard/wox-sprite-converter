@@ -11,4 +11,5 @@ A utility to convert sprite assets found in the game Might and Magic 4-5 World o
 2. Run cargo build --release
 
 <h2>Usage:</h2>
-./xeen-sprite-convert [sprite_file] [pal_file]
+1. Extract the relevant .CC file to get all the game data using https://github.com/ShortBeard/wox-extractor</br>
+2. run <strong>./xeen-sprite-convert [sprite_file] [pal_file]</strong>
