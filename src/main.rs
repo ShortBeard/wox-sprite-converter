@@ -84,7 +84,7 @@ impl Frame {
         //Otherwise combine the two cells
         else {
             let longest_length = std::cmp::max(
-                self.cell_data[1].cell_color_data.len(),
+                self.cell_data[0].cell_color_data.len(),
                 self.cell_data[1].cell_color_data.len(),
             );
 
@@ -238,7 +238,11 @@ fn read_cell_headers(frames: &mut Vec<Frame>, file_buffer: &Vec<u8>) {
 }
 
 fn create_image_from_color_data(
-    color_data: &[u8], width: u16, height: u16, counter: u32, file_name: &str,
+    color_data: &[u8],
+    width: u16,
+    height: u16,
+    counter: u32,
+    file_name: &str,
 ) {
     let mut image = RgbaImage::new(width as u32, height as u32);
 
