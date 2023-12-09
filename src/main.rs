@@ -54,18 +54,16 @@ impl Frame {
 
     //A frames height is always the largest of the 2 cells
     fn set_frame_height(&mut self) {
-        //Get whichever the highest Y offset is between the two frames
-        //For the 2nd cell, if we can't get it (due to it potentially not existing), instead compare it to 0
-        self.y_offset = std::cmp::max(
-            self.cell_data[0].y_offset,
-            self.cell_data.get(1).map_or(0, |cell| cell.y_offset),
-        );
+        //Get whichever cell is our tallest (Not sure if it's just the height or height + y_offset that determines the tallest?)
+        let tallest_cell = self
+            .cell_data
+            .iter()
+            .max_by_key(|cell| cell.height)
+            .unwrap();
 
-        //Do the same for frame height
-        self.frame_height = std::cmp::max(
-            self.cell_data[0].height,
-            self.cell_data.get(1).map_or(0, |cell| cell.height),
-        );
+        //Set the frames height and y offset to the tallest cell found
+        self.frame_height = tallest_cell.height;
+        self.y_offset = tallest_cell.y_offset;
     }
 
     //A frames height is always the largest of the 2 cells
@@ -249,15 +247,12 @@ fn create_image_from_color_data(
     for y in 0..height as u32 {
         for x in 0..width as u32 {
             let index = (y * width as u32 + x) as usize * 4;
-            //Ensure that we don't go out of bounds
-            if index < color_data.len() {
-                let a = color_data[index + 3];
-                let r = color_data[index + 2];
-                let g = color_data[index + 1];
-                let b = color_data[index + 0];
+            let a = color_data[index + 3];
+            let r = color_data[index + 2];
+            let g = color_data[index + 1];
+            let b = color_data[index + 0];
 
-                image.put_pixel(x, y, Rgba([r, g, b, a]));
-            }
+            image.put_pixel(x, y, Rgba([r, g, b, a]));
         }
     }
 
