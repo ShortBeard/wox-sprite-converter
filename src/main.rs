@@ -249,12 +249,15 @@ fn create_image_from_color_data(
     for y in 0..height as u32 {
         for x in 0..width as u32 {
             let index = (y * width as u32 + x) as usize * 4;
-            let a = color_data[index + 3];
-            let r = color_data[index + 2];
-            let g = color_data[index + 1];
-            let b = color_data[index + 0];
+            //Ensure that we don't go out of bounds
+            if index < color_data.len() {
+                let a = color_data[index + 3];
+                let r = color_data[index + 2];
+                let g = color_data[index + 1];
+                let b = color_data[index + 0];
 
-            image.put_pixel(x, y, Rgba([r, g, b, a]));
+                image.put_pixel(x, y, Rgba([r, g, b, a]));
+            }
         }
     }
 

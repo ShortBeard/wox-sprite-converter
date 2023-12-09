@@ -19,7 +19,7 @@ pub fn cell_to_rgb32(
 
     //Create vector to store our color data
     let mut color_data = Vec::new();
-
+    //let mut color_data: Vec<u8> = vec![0; total_bytes as usize];
     // Split the RGBA color into its constituent bytes
     let rgba_bytes = transparent.to_be_bytes(); // Big-endian byte order
 
