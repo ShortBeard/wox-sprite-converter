@@ -7,7 +7,7 @@ A utility to convert sprite assets found in the game Might and Magic 4-5 World o
 ![002 ATT_1](https://github.com/ShortBeard/wox-sprite-converter/assets/8405659/8918732b-f2d3-481e-8173-bf37d8d3d45c)
 
 <h2>Building:</h2>
-1. Clone this repo
+1. Clone this repo</br>
 2. Run cargo build --release
 
 <h2>Usage:</h2>

@@ -1,7 +1,10 @@
 use crate::CellData;
 
 pub fn cell_to_rgb32(
-    cell_data: &CellData, palette_data: &[u8], transparent: u32, file_buffer: &Vec<u8>,
+    cell_data: &CellData,
+    palette_data: &[u8],
+    transparent: u32,
+    file_buffer: &Vec<u8>,
 ) -> Vec<u8> {
     let (x_offset, width, y_offset, height) = (
         cell_data.x_offset as usize,
@@ -14,7 +17,8 @@ pub fn cell_to_rgb32(
         * (cell_data.y_offset as u32 + cell_data.height as u32)
         * 4;
 
-    let mut color_data: Vec<u8> = vec![0; total_bytes as usize];
+    //Create vector to store our color data
+    let mut color_data = Vec::new();
 
     // Split the RGBA color into its constituent bytes
     let rgba_bytes = transparent.to_be_bytes(); // Big-endian byte order
@@ -139,7 +143,11 @@ pub fn cell_to_rgb32(
 }
 
 fn put_pixel(
-    color_data: &mut Vec<u8>, x: usize, y: usize, width: usize, color_index: usize,
+    color_data: &mut Vec<u8>,
+    x: usize,
+    y: usize,
+    width: usize,
+    color_index: usize,
     palette_data: &[u8],
 ) {
     color_data[(y * width + x) * 4] = palette_data[color_index * 3 + 2] << 2;
