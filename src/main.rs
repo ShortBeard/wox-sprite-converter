@@ -54,11 +54,11 @@ impl Frame {
 
     //A frames height is always the largest of the 2 cells
     fn set_frame_height(&mut self) {
-        //Get whichever cell is our tallest (Not sure if it's just the height or height + y_offset that determines the tallest?)
+        //Get whichever cell is our talles (cell height + y_offset determines total height before deciding)
         let tallest_cell = self
             .cell_data
             .iter()
-            .max_by_key(|cell| cell.height)
+            .max_by_key(|cell| cell.height + cell.y_offset)
             .unwrap();
 
         //Set the frames height and y offset to the tallest cell found
