@@ -129,23 +129,24 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() < 3 {
-        eprintln!("Usage: .\\xeen-sprite-convert <file_name> <pal_name>");
-        eprintln!("Example: .\\xeen-sprite-convert 000.ATT MM4.PAL");
+        eprintln!("Usage: .\\xeen-sprite-convert <file_name1> <file_name2> ... <pal_name>");
+        eprintln!("Example: .\\xeen-sprite-convert 000.ATT 000.MON MM4.PAL");
         std::process::exit(1);
     } else {
-        let file_name = &args[1];
-        let pal_name = &args[2];
-        let open_file_result: Result<File, io::Error> = open_file(file_name);
-        match open_file_result {
-            Ok(file) => {
-                let open_pal_result: Result<File, io::Error> = open_file(pal_name);
-                match open_pal_result {
-                    Ok(pal_file) => begin_image_extraction(file, file_name, pal_file),
-                    Err(err) => print!("Error opening PAL file: {}", err),
+        let pal_name = &args.last().unwrap();
+        for file_name in args.iter().skip(1).take(args.len() - 2) {
+            let open_file_result: Result<File, io::Error> = open_file(file_name);
+            match open_file_result {
+                Ok(file) => {
+                    let open_pal_result: Result<File, io::Error> = open_file(pal_name);
+                    match open_pal_result {
+                        Ok(pal_file) => begin_image_extraction(file, file_name, pal_file),
+                        Err(err) => eprintln!("Error opening PAL file: {}", err),
+                    }
                 }
-            }
-            Err(err) => print!("Error opening sprite file: {}", err),
-        };
+                Err(err) => eprintln!("Error opening sprite file: {}", err),
+            };
+        }
     }
 }
 
@@ -173,7 +174,7 @@ fn begin_image_extraction(mut sprite_file: File, sprite_file_name: &str, mut pal
     let transparent: u32 = 0x00000000; // Transparent RGBA
     let frame_count: u16 = u16::from_le_bytes([file_buffer[0], file_buffer[1]]);
 
-    println!("Frame count: {}", frame_count); //Print how many frames are in this fle
+    println!("Frame count: {}", frame_count); //Print how many frames are in this file
 
     let mut image_frames: Vec<Frame> = get_cell_offset_info_new(frame_count, &file_buffer);
 
